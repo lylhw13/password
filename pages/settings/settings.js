@@ -5,7 +5,57 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+      seed_flag: true,
+      time_span: 1,
+      showModal: false,
+    showModalId: 0,// 0 InitSeed, 1 modify time, 2 ResetSeed
+    modalTitle: ["Init Seed", "Modify Time", , "Reset Seed"],
+    modalInputHolder: [["please input new seed", "please repeat new seed", ""],
+        ["please input time", "please input seed", ""], 
+        ["please input old seed", "please input new seed", "please repeat new seed"],]
+  },
+  onInitSeed: function() {
+    if(!this.data.showModal) {
+      this.setData({
+        showModal: true,
+        showModalId: 0
+      })
+    }
+  },
+  onModifyTime: function () {
+    if (!this.data.showModal) {
+      this.setData({
+        showModal: true,
+        showModalId: 1
+      })
+    }
+  },
+  onResetSeed: function() {
+    if (!this.data.showModal) {
+      this.setData({
+        showModal: true,
+        showModalId: 2
+      })
+    }
+  },
+  onDeleteSeed: function() {
+      //todo
+  },
+  
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    })
+  },
+  onBtnCancel: function () {
+    this.setData({
+      showModal: false
+    })
+  },
+  onBtnConfirm: function () {
+    this.setData({
+      showModal: true
+    })
   },
 
   /**

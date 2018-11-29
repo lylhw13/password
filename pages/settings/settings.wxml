@@ -1,2 +1,37 @@
 <!--pages/setting/settings.wxml-->
 <text>pages/setting/settings.wxml</text>
+<view class="main-view">
+  <view>
+    <view wx:if="{{seed_flag}}" class="seed-view">
+      <button bindtap="onInitSeed">设置种子</button>
+    </view>
+    <view wx:else class="seed-view">
+      <button bindtap="onResetSeed">Reset seed</button>
+      <button bindtap="onDeleteSeed">Delete seed</button>
+    </view>
+  </view>
+  <view class="time-span">
+    <text>设定产生密码的间隔时间</text>
+    <view class="time-number">{{time_span}}min</view>
+    <button bindtap="onModifyTime">modify</button>
+  </view>
+
+  <!--dialog-->
+  <view class="modal-mask" bindtap="preventTouch" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-title">{{modalTitle[showModalId]}}</view>
+    <view class="modal-content">
+      <view class="modal-input">
+        <input placeholder-class="input-holder" class="input" placeholder="{{modalInputHolder[showModalId][0]}}" password="true"></input>  
+        <input placeholder-class="input-holder" class="input" placeholder="{{modalInputHolder[showModalId][1]}}" password="true"></input>
+        <input wx:if="{{showModalId == 2}}" placeholder-class="input-holder" class="input" placeholder="{{modalInputHolder[showModalId][2]}}" password="true"></input>
+      </view>
+      
+
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onBtnCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onBtnConfirm" data-status="confirm">确定</view>
+    </view>
+  </view>
+</view>

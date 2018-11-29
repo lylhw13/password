@@ -1,28 +1,8 @@
-/* pages/setting/settings.wxss */
-.main-view {
-  display: flex;
-  flex-direction: column;
+/* pages/settings/input_dialog/input_dialog.wxss */
+.show-btn {
+  margin-top: 100rpx;
+  color: #22cc22;
 }
-
-.seed-view {
-  display: flex;
-  flex-direction: row;
-}
-
-.time-span {
-  display: flex;
-  flex-direction: row;
-  height: 100rpx;
-  background-color: gainsboro;
-  margin-top:50rpx;
-}
-
-.time-number{
-  text-align: center;
-  background-color: gold;
-}
-
-/* dialog wxss */
 
 .modal-mask {
   width: 100%;
@@ -61,8 +41,9 @@
 
 .modal-input {
   display: flex;
-  flex-direction: column;
   background: #fff;
+  border: 2rpx solid #ddd;
+  border-radius: 4rpx;
   font-size: 28rpx;
 }
 
@@ -74,9 +55,6 @@
   padding: 0 20rpx;
   box-sizing: border-box;
   color: #333;
-  border: 2rpx solid #ddd;
-  border-radius: 4rpx;
-  
 }
 
 input-holder {

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/settings/settings",
+    "pages/settings/input_dialog/input_dialog",    
     "pages/main/main",
     "pages/index/index",
     "pages/logs/logs"
