@@ -1,0 +1,62 @@
+/* pages/main/main.wxss */
+.main-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-view {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.settings-view image {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 50rpx;
+}
+
+.salt-view {
+  display: flex;
+  flex-direction: row;
+  height: 70rpx;
+  margin-top:100rpx;
+  background-color: gainsboro;
+}
+
+.salt-view text{
+  margin-left: 50rpx;
+}
+
+.eye-image{
+  width: 30rpx;
+  height: 30rpx;
+  margin: 20rpx 30rpx auto 30rpx;
+}
+
+.salt-view input{
+  background-color: aliceblue;
+  height: 100%;
+}
+
+.passwd-view {
+  display: flex;
+  flex-direction: row;
+  margin-top: 100rpx;
+}
+
+.passwd-view button{
+  height:50rpx;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+
+.passwd {
+  background-color: gainsboro;
+  height: 100%;
+  width: 300rpx;
+}
+
+.generate-passwd-button {
+  width:50%;
+  margin-top: 50rpx;
+}
