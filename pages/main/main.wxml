@@ -1,4 +1,5 @@
 <!--pages/main/main.wxml-->
+<import src="../settings/input-dialog/input-dialog.wxml"/>
 <view class='main-view'>
   <view>
     <view class="settings-view" wx:if="{{seed_state}}">
@@ -39,4 +40,6 @@
     <image src="../../icon/question.png"></image>
     <text>更多信息...</text>
   </view>
+
+  <template is="modalDialogTem" data="{{showModal, showModalId, modalDialog}}"/>
 </view>

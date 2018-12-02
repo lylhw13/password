@@ -1,4 +1,6 @@
 /* pages/main/main.wxss */
+@import "../settings/input-dialog/input-dialog.wxss";
+
 .main-view {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,5 @@
 <!--pages/setting/settings.wxml-->
+<import src="input-dialog/input-dialog.wxml" />
 <view class="main-view">
   <view>
     <view class="seed-container-view">
@@ -17,21 +18,7 @@
     <button class="time-number" bindtap="onPageBtn" id="2">{{time_span}}</button>
   </view>
 
-  <!--dialog-->
-  <view class="modal-mask" bindtap="preventTouch" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-  <view class="modal-dialog" wx:if="{{showModal}}">
-    <view class="modal-title">{{modalDialog[showModalId].title}}</view>
-    <view class="modal-content">
-      <view class="modal-input">
-        <block wx:for="{{modalDialog[showModalId].inputHolder}}" wx:for-item="item" wx:for-index="idx">
-          <input placeholder-class="input-holder" class="input" placeholder="{{item}}" password="{{modalDialog[showModalId].password[idx]}}"></input>
-        </block>
-      </view>
+<!--dialog-->
+<template is="modalDialogTem" data="{{showModal,showModalId,modalDialog}}"/>
 
-    </view>
-    <view class="modal-footer">
-      <view class="btn-cancel" bindtap="onBtnCancel" data-status="cancel">取消</view>
-      <view class="btn-confirm" bindtap="onBtnConfirm" data-status="confirm">确定</view>
-    </view>
-  </view>
 </view>

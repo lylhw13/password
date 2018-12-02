@@ -9,97 +9,120 @@ Page({
    * 页面的初始数据
    */
   data: {
-      show_flag : [true,false],
-      seed_state: true,
-      passwd:"hello",
-      passwdStr : ""
-  },
+    show_flag: [true, false],
+    seed_state: false,
+    passwd: "hello",
+    passwdStr: "",
 
-  onEyeChange: function(e){
-     var id = e.currentTarget.id
-     this.data.show_flag[id] = !this.data.show_flag[id];
-     if(id == 1) {
-       if(this.data.show_flag[id])
-          this.data.passwdStr = this.data.passwd;
-        else {
-          this.data.passwdStr = '*'.repeat(this.data.passwd.length);
-        }
-     }
-     this.setData({
-       show_flag : this.data.show_flag,
-       passwdStr : this.data.passwdStr
-     })
-  },
+    showModal: false,
+    showModalId: 0, // 0 InitSeed
+    modalDialog: [{
+        title: "设定种子",
+        inputHolder: ["请输入种子", "请再次输入种子"],
+        password: [true, true]
+      }]
+  
+},
 
-  onCopyPasswd: function(e) {
-    wx.setClipboardData({
-      data: this.data.passwd,
-    });
-  },
-
-  onToSettings: function(e) {
-    wx.navigateTo({
-      url: '../settings/settings',
-    });
-  },
-
-  onInitSeed: function(e) {
-    //todo
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-      console.log(CryptoJS.SHA256("你好").toString());
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+onEyeChange: function(e) {
+  var id = e.currentTarget.id
+  this.data.show_flag[id] = !this.data.show_flag[id];
+  if (id == 1) {
+    if (this.data.show_flag[id])
+      this.data.passwdStr = this.data.passwd;
+    else {
+      this.data.passwdStr = '*'.repeat(this.data.passwd.length);
+    }
   }
+  this.setData({
+    show_flag: this.data.show_flag,
+    passwdStr: this.data.passwdStr
+  })
+},
+
+onCopyPasswd: function(e) {
+  wx.setClipboardData({
+    data: this.data.passwd,
+  });
+},
+
+onToSettings: function(e) {
+  wx.navigateTo({
+    url: '../settings/settings',
+  });
+},
+
+onInitSeed: function(e) {
+  if (!this.data.showModal) {
+    this.setData({
+      showModal: true,
+    })
+  }
+},
+  onBtnCancel: function () {
+    this.setData({
+      showModal: false
+    })
+  },
+  onBtnConfirm: function () {
+    this.setData({
+      showModal: true
+    })
+  },
+
+/**
+ * 生命周期函数--监听页面加载
+ */
+onLoad: function(options) {
+  console.log(CryptoJS.SHA256("你好").toString());
+},
+
+/**
+ * 生命周期函数--监听页面初次渲染完成
+ */
+onReady: function() {
+
+},
+
+/**
+ * 生命周期函数--监听页面显示
+ */
+onShow: function() {
+
+},
+
+/**
+ * 生命周期函数--监听页面隐藏
+ */
+onHide: function() {
+
+},
+
+/**
+ * 生命周期函数--监听页面卸载
+ */
+onUnload: function() {
+
+},
+
+/**
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+onPullDownRefresh: function() {
+
+},
+
+/**
+ * 页面上拉触底事件的处理函数
+ */
+onReachBottom: function() {
+
+},
+
+/**
+ * 用户点击右上角分享
+ */
+onShareAppMessage: function() {
+
+}
 })

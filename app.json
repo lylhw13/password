@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/settings/settings",
     "pages/main/main",
+    
+    "pages/settings/settings",
     
     "pages/index/index",
     "pages/logs/logs"
