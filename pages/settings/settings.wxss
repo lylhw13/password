@@ -8,13 +8,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-top: 1px solid #dedede;
-  border-bottom: 1px solid #dedede;
   margin-top:50rpx;  
-  font-size: 35rpx;
-  line-height: 86rpx;
-  padding-top: 10rpx;
-  padding-bottom: 10rpx;
+  line-height: 90rpx;
+  padding: 10rpx 0;
+  background-color: white;
+  margin: 90rpx 20rpx 0 20rpx;
+  border-radius: 20rpx;
 }
 
 .seed-label {
@@ -30,33 +29,35 @@
 }
 
 .seed-btn-view button{
-  font-size: 35rpx;
   margin-left: 30rpx;
-  background-color: gainsboro;
   width: 130rpx;
+  line-height: 70rpx;
+  margin-top: 10rpx;
+  color: #666;
 }
 
 .time-container-view {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-top: 1px solid #dedede;
-  border-bottom: 1px solid #dedede;
   margin-top:50rpx;  
   font-size: 35rpx;
-  line-height: 86rpx;
-  padding-top: 10rpx;
-  padding-bottom: 10rpx;
+  line-height: 90rpx;
+  padding: 10rpx 0;
+  background-color: white;
+  margin: 90rpx 20rpx 0 20rpx;
+  border-radius: 20rpx;
 }
 .time-label {
   margin-left: 60rpx;
 }
 .time-number{
-  background-color: gainsboro;
-  text-align: center;
   width:130rpx;
-  border-radius: 10rpx;
   margin-right: 60rpx;
+  line-height: 70rpx;
+  height: 70rpx;
+  margin-top: 10rpx;
+  color: #666;
 }
 
 /* dialog wxss */
@@ -93,7 +94,7 @@
 }
 
 .modal-content {
-  padding: 50rpx 32rpx;
+  padding: 40rpx 32rpx 50rpx;
 }
 
 .modal-input {
@@ -142,4 +143,9 @@ input-holder {
   width: 50%;
   color: #ec5300;
   text-align: center;
+}
+
+page {
+  height: 100%;
+  background-color: #f2f2f2;
 }

@@ -1,16 +1,15 @@
 <!--pages/main/main.wxml-->
 <view class='main-view'>
-  <text class="title">基于口令的密码管理</text>
   <view>
     <view class="settings-view" wx:if="{{seed_state}}">
       <view class="seed-state-view">
         <image src="../../icon/checked.png"></image>
         <text>种子已设定完成</text>
       </view>
-      <image src="../../icon/settings.png"></image>
+      <image src="../../icon/settings.png" bindtap='onToSettings'></image>
     </view>
-    <view class="settings-view" wx:else>
-      <view  class="seed-state-view">
+    <view class="settings-view" wx:else bindtap="onInitSeed">
+      <view class="seed-state-view">
         <image src="../../icon/exclamation-mark.png"></image>
         <text>请先设定种子</text>
       </view>
@@ -37,7 +36,7 @@
     </button>
   </view>
   <view class='info'>
-  <image src="../../icon/question.png"></image>
-  <text>more info</text>
+    <image src="../../icon/question.png"></image>
+    <text>更多信息...</text>
   </view>
 </view>

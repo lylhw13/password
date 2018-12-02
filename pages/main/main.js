@@ -37,6 +37,16 @@ Page({
     });
   },
 
+  onToSettings: function(e) {
+    wx.navigateTo({
+      url: '../settings/settings',
+    });
+  },
+
+  onInitSeed: function(e) {
+    //todo
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

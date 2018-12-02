@@ -5,40 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-      seed_flag: false,
+      seed_flag: true,
       time_span: 1,
       showModal: false,
-    showModalId: 0,// 0 InitSeed, 1 modify time, 2 ResetSeed
-    modalTitle: ["设定种子", "修改时间", "重设种子"],
-    modalInputHolder: [["请输入种子", "请再次输入种子", ""],
-      ["请输入时间间隔", "请输入种子", ""], 
-      ["请输入旧种子", "请输入新种子", "请再次输入新种子"],]
+    showModalId: 0,// 0 InitSeed, 1 ResetSeed, 2 modify time
+    modalDialog: [{ title: "设定种子", inputHolder: ["请输入种子", "请再次输入种子"], password:[true,true]},
+      { title: "重设种子", inputHolder: ["请输入旧种子", "请输入新种子", "请再次输入新种子"], password: [true,true, true] },
+      { title: "修改时间", inputHolder: ["请输入时间间隔", "请输入种子"], password: [false, true] }]
   },
-  onInitSeed: function() {
-    if(!this.data.showModal) {
-      this.setData({
-        showModal: true,
-        showModalId: 0
-      })
-    }
+  onPageBtn: function(e) {
+      var id = e.currentTarget.id;
+      if(!this.data.showModal) {
+        this.setData({
+          showModal: true,
+          showModalId : id
+        })
+      }
   },
-  onModifyTime: function () {
-    if (!this.data.showModal) {
-      this.setData({
-        showModal: true,
-        showModalId: 1
-      })
-    }
-  },
-  onResetSeed: function() {
-    if (!this.data.showModal) {
-      this.setData({
-        showModal: true,
-        showModalId: 2
-      })
-    }
-  },
-  onDeleteSeed: function() {
+  
+  onDeleteSeedBtn: function() {
       //todo
   },
   

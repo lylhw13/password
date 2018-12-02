@@ -4,18 +4,12 @@
   flex-direction: column;
 }
 
-.title {
-  text-align: center;
-  margin-top: 50rpx;
-}
-
-
 .settings-view {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 90rpx;
-  margin: 60rpx 50rpx 0 50rpx;
+  margin: 50rpx 50rpx 0 50rpx;
 
 }
 
@@ -42,6 +36,7 @@
   background-color: white;
   margin: 90rpx 20rpx 0 20rpx;
   border-radius: 20rpx;
+  padding: 10rpx 0;
 }
 
 .salt-view text{
@@ -69,6 +64,7 @@
   background-color: white;
   margin: 90rpx 20rpx 0 20rpx;
   border-radius: 20rpx;
+  padding: 10rpx 0;
 }
 
 .passwd-label{
@@ -86,7 +82,7 @@
 .passwd-text {
   width: 300rpx;
   line-height: 90rpx;
-    border-left: 2rpx solid #ddd;
+  border-left: 2rpx solid #ddd;
   padding-left: 10rpx;
 }
 
@@ -115,6 +111,7 @@
 }
 .info text {
   line-height: 90rpx;
+  font-size: 30rpx;
 }
 
 
