@@ -5,14 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-      seed_flag: true,
+      seed_flag: false,
       time_span: 1,
       showModal: false,
     showModalId: 0,// 0 InitSeed, 1 modify time, 2 ResetSeed
-    modalTitle: ["Init Seed", "Modify Time", , "Reset Seed"],
-    modalInputHolder: [["please input new seed", "please repeat new seed", ""],
-        ["please input time", "please input seed", ""], 
-        ["please input old seed", "please input new seed", "please repeat new seed"],]
+    modalTitle: ["设定种子", "修改时间", "重设种子"],
+    modalInputHolder: [["请输入种子", "请再次输入种子", ""],
+      ["请输入时间间隔", "请输入种子", ""], 
+      ["请输入旧种子", "请输入新种子", "请再次输入新种子"],]
   },
   onInitSeed: function() {
     if(!this.data.showModal) {

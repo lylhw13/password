@@ -10,8 +10,9 @@ Page({
    */
   data: {
       show_flag : [true,false],
+      seed_state: true,
       passwd:"hello",
-      passwdStr : "******"
+      passwdStr : ""
   },
 
   onEyeChange: function(e){

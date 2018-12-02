@@ -1,25 +1,43 @@
 <!--pages/main/main.wxml-->
 <view class='main-view'>
-  <text>control password</text>
-  <view class="settings-view">
-  <image src="../../icon/settings.png"></image>  
+  <text class="title">基于口令的密码管理</text>
+  <view>
+    <view class="settings-view" wx:if="{{seed_state}}">
+      <view class="seed-state-view">
+        <image src="../../icon/checked.png"></image>
+        <text>种子已设定完成</text>
+      </view>
+      <image src="../../icon/settings.png"></image>
+    </view>
+    <view class="settings-view" wx:else>
+      <view  class="seed-state-view">
+        <image src="../../icon/exclamation-mark.png"></image>
+        <text>请先设定种子</text>
+      </view>
+      <image src="../../icon/settings-grey.png"></image>
+    </view>
   </view>
+
   <view class='salt-view'>
-    <text>salt</text>
+    <text class="salt-label">口令</text>
     <image class='eye-image' src="../../icon/eye.png" wx:if="{{show_flag[0]}}" bindtap='onEyeChange' id='0'></image>
     <image class='eye-image' src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='0'></image>
-    <input focus='{{true}}' maxlength='30' confirm-type='done' placeholder='please input your salt' width='100' password='{{!show_flag[0]}}'></input>
+    <input focus='{{true}}' maxlength='30' confirm-type='done' placeholder='请输入口令' password='{{!show_flag[0]}}'></input>
   </view>
   <view class='passwd-view'>
-    <text>password</text>
+    <text class='passwd-label'>密码</text>
     <image class='eye-image' src="../../icon/eye.png" wx:if="{{show_flag[1]}}" bindtap='onEyeChange' id='1'></image>
     <image class='eye-image' src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='1'></image>
-    <text class="passwd">{{passwdStr}}</text>
+    <text class="passwd-text">{{passwdStr}}</text>
     <button class='copy-passwd' bindtap='onCopyPasswd'>复制</button>
   </view>
   <view>
     <button class="generate-passwd-button">
-      产生密钥
+      产生密码
     </button>
+  </view>
+  <view class='info'>
+  <image src="../../icon/question.png"></image>
+  <text>more info</text>
   </view>
 </view>

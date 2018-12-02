@@ -4,59 +4,121 @@
   flex-direction: column;
 }
 
+.title {
+  text-align: center;
+  margin-top: 50rpx;
+}
+
+
 .settings-view {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 90rpx;
+  margin: 60rpx 50rpx 0 50rpx;
+
 }
 
 .settings-view image {
   width: 50rpx;
   height: 50rpx;
-  margin-right: 50rpx;
+  margin-top: 20rpx;
+}
+
+.seed-state-view {
+  display: flex;
+  flex-direction: row;
+}
+
+.seed-state-view text{
+  margin-left: 20rpx;
+  line-height: 90rpx;
 }
 
 .salt-view {
   display: flex;
   flex-direction: row;
-  height: 70rpx;
-  margin-top:100rpx;
-  background-color: gainsboro;
+  height: 90rpx;
+  background-color: white;
+  margin: 90rpx 20rpx 0 20rpx;
+  border-radius: 20rpx;
 }
 
 .salt-view text{
   margin-left: 50rpx;
+  line-height: 90rpx;
 }
 
 .eye-image{
   width: 30rpx;
   height: 30rpx;
-  margin: 20rpx 30rpx auto 30rpx;
+  margin: 30rpx 30rpx auto 30rpx;
 }
 
 .salt-view input{
-  background-color: aliceblue;
   height: 100%;
+  margin-right: 50rpx;
+  border-left: 2rpx solid #ddd;
+  padding-left: 10rpx;
 }
 
 .passwd-view {
   display: flex;
   flex-direction: row;
-  margin-top: 100rpx;
+  height: 90rpx;
+  background-color: white;
+  margin: 90rpx 20rpx 0 20rpx;
+  border-radius: 20rpx;
 }
 
-.passwd-view button{
-  height:50rpx;
-  font-size: 30rpx;
-  line-height: 50rpx;
+.passwd-label{
+  margin-left: 50rpx;
+  line-height: 90rpx;
 }
 
-.passwd {
-  background-color: gainsboro;
-  height: 100%;
+.copy-passwd{
+  height:70rpx;
+  line-height: 70rpx;
+  margin-top: 10rpx;
+  color: #666;
+}
+
+.passwd-text {
   width: 300rpx;
+  line-height: 90rpx;
+    border-left: 2rpx solid #ddd;
+  padding-left: 10rpx;
 }
 
 .generate-passwd-button {
   width:50%;
-  margin-top: 50rpx;
+  margin-top: 90rpx;
+  color: #666;
+}
+
+.info {
+  position: fixed;
+  top:90%;
+  height: 90rpx;
+  display: flex;
+  flex-direction: row;
+  /*水平居中*/
+  left:50%;
+  transform: translateX(-50%);
+}
+
+.info image{
+  height: 30rpx;
+  width: 30rpx;
+  margin-top: 30rpx;
+  margin-right: 30rpx;
+}
+.info text {
+  line-height: 90rpx;
+}
+
+
+page {
+  height: 100%;
+  background-color: #f2f2f2;
 }
