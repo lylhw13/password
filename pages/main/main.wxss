@@ -92,6 +92,8 @@
   width:50%;
   margin-top: 90rpx;
   color: #666;
+  /*color:#fff;
+  background-color: #b3d4db;*/
 }
 
 .info {
