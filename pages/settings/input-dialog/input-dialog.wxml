@@ -25,7 +25,7 @@
     <view class="modal-content">
       <view class="modal-input">
         <block wx:for="{{modalDialog[showModalId].inputHolder}}" wx:for-item="item" wx:for-index="idx">
-          <input placeholder-class="input-holder" class="input" placeholder="{{item}}" id="{{idx}}" password="{{modalDialog[showModalId].password[idx]}}" bindinput='bindKeyInput'></input>
+          <input placeholder-class="input-holder" class="input" placeholder="{{item}}" id="{{idx}}" password="{{modalDialog[showModalId].password[idx]}}" bindinput='bindTextInput'></input>
         </block>
       </view>
 

@@ -1,5 +1,5 @@
 <!--pages/main/main.wxml-->
-<import src="../settings/input-dialog/input-dialog.wxml"/>
+<import src="../settings/input-dialog/input-dialog.wxml" />
 <view class='main-view'>
   <view>
     <view class="settings-view" wx:if="{{seed_state}}">
@@ -20,19 +20,24 @@
 
   <view class='salt-view'>
     <text class="salt-label">口令</text>
-    <image class='eye-image' src="../../icon/eye.png" wx:if="{{show_flag[0]}}" bindtap='onEyeChange' id='0'></image>
-    <image class='eye-image' src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='0'></image>
-    <input focus='{{true}}' maxlength='30' confirm-type='done' placeholder='请输入口令' password='{{!show_flag[0]}}'></input>
+    <view class="eye-image-view">
+      <image src="../../icon/eye.png" wx:if="{{show_flag[0]}}" bindtap='onEyeChange' id='0'></image>
+      <image src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='0'></image>
+    </view>
+    <input focus='{{true}}' maxlength='30' confirm-type='done' placeholder='请输入口令' password='{{!show_flag[0]}}' bindinput='bindKeyInput' value='{{inputKeyText}}'></input>
   </view>
+
   <view class='passwd-view'>
     <text class='passwd-label'>密码</text>
-    <image class='eye-image' src="../../icon/eye.png" wx:if="{{show_flag[1]}}" bindtap='onEyeChange' id='1'></image>
-    <image class='eye-image' src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='1'></image>
+    <view class="eye-image-view">
+      <image src="../../icon/eye.png" wx:if="{{show_flag[1]}}" bindtap='onEyeChange' id='1'></image>
+      <image src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='1'></image>
+    </view>
     <text class="passwd-text">{{passwdStr}}</text>
-    <button class='copy-passwd' bindtap='onCopyPasswd'>复制</button>
+    <button class='copy-passwd' bindtap='onCopyPasswd' disabled='{{passwd.length==0}}'>复制</button>
   </view>
   <view>
-    <button class="generate-passwd-button">
+    <button class="generate-passwd-button" bindtap="onGeneratePasswd" disabled='{{!seed_state}}'>
       产生密码
     </button>
   </view>
@@ -41,5 +46,5 @@
     <text>更多信息...</text>
   </view>
 
-  <template is="modalDialogTem" data="{{showModal, showModalId, modalDialog}}"/>
+  <template is="modalDialogTem" data="{{showModal, showModalId, modalDialog}}" />
 </view>

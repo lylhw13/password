@@ -46,7 +46,7 @@
   line-height: 90rpx;
 }
 
-.eye-image{
+.eye-image-view image{
   width: 30rpx;
   height: 30rpx;
   margin: 30rpx 30rpx auto 30rpx;

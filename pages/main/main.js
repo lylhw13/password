@@ -9,15 +9,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show_flag: [true, false],
+    show_flag: [true, false],   // 口令和密码是否显示为明文
     seed_state: false,
-    passwd: "hello",
-    passwdStr: "",
-    the_seed_key: "seed",
+    passwd: "",
+    passwdStr: "",    // show in the page, it may be string or ***
+    inputKey: "",   //用户输入的口令
+    inputKeyText: "",   //仅用于清空输入框
+    seedKey: "seed",    //seed的键名
 
-    inputData: ["", ""],
 
     //dialog
+    dialogInputData: ["", ""],
     showModal: false,
     showModalId: 0, // 0 InitSeed
     modalDialog: [{
@@ -45,9 +47,17 @@ Page({
   },
 
   onCopyPasswd: function(e) {
-    wx.setClipboardData({
-      data: this.data.passwd,
-    });
+    if (this.data.seed_state && this.data.passwd.length != 0) {
+      wx.setClipboardData({
+        data: this.data.passwd,
+      });
+    }
+    this.setData({
+      passws: "",     // after the copy, clear the passwd
+      passwdStr: "",
+      inputKeyText: "",
+
+    })
   },
 
   onToSettings: function(e) {
@@ -63,40 +73,50 @@ Page({
       })
     }
   },
-  bindKeyInput: function(e) {
+
+  bindTextInput: function(e) {    // the dialog input
     var id = e.currentTarget.id;
-    this.data.inputData[id] = e.detail.value;
+    this.data.dialogInputData[id] = e.detail.value;
   },
+
+  bindKeyInput: function(e) {     // the key input
+    this.data.inputKey = e.detail.value;
+  },
+
+
   onBtnCancel: function() {
     this.setData({
       showModal: false,
-      inputData: ["", ""]
+      dialogInputData: ["", ""]
     })
   },
+
   onBtnConfirm: function(e) {
-    if (this.data.inputData[0].length != 0 || this.data.inputData[1].length != 0) {
-      if (this.data.inputData[0] === this.data.inputData[1]) {
-        var seedStr = CryptoJS.SHA256(this.data.inputData[0]).toString();
-        wx.setStorageSync(this.data.the_seed_key, seedStr);
-
-        this.data.seed_state = true;
-
-      } else {
-        wx.showToast({
-          title: 'The two input is different',
-        })
-      }
+    if ((this.data.dialogInputData[0].length != 0 || this.data.dialogInputData[1].length != 0) && this.data.dialogInputData[0] === this.data.dialogInputData[1]) {
+      var seedStr = CryptoJS.SHA256(this.data.dialogInputData[0]).toString();
+      wx.setStorageSync(this.data.seedKey, seedStr);
+      this.data.seed_state = true;
+      wx.showToast({
+        title: '种子设定成功',
+      })
     } else {
       wx.showToast({
-        title: 'One input is empty',
+        title: '输入值为空或不一致',
+        icon: "none"
       })
     }
 
     this.setData({
       showModal: false,
-      inputData: ["", ""],
+      dialogInputDataa: ["", ""],
       seed_state: this.data.seed_state
     })
+  },
+
+  onGeneratePasswd: function() {
+    if(this.data.inputKey.length!=0) {
+      console.log(this.data.inputKey)
+    }
   },
 
   /**
@@ -167,4 +187,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+});
