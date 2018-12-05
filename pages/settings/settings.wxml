@@ -4,7 +4,7 @@
   <view>
     <view class="seed-container-view">
       <text class="seed-label">种子设定:</text>
-      <view wx:if="{{!seed_flag}}" class="seed-btn-view">
+      <view wx:if="{{!seed_state}}" class="seed-btn-view">
         <button bindtap="onPageBtn" id="0">设置</button>
       </view>
       <view wx:else class="seed-btn-view">
@@ -13,11 +13,18 @@
       </view>
     </view>
   </view>
+  <!--
   <view class="time-container-view">
     <text class="time-label">密码的间隔(min):</text>
     <button class="time-number" bindtap="onPageBtn" id="2">{{time_span}}</button>
   </view>
-
+  -->
+  <block wx:for="{{timeItem}}" wx:for-item="item" wx:for-index="idx">
+  <view class="time-container-view">
+    <text class="time-label">{{item.label}}(min):</text>
+    <button class="time-number" bindtap="onPageBtn" id="2" timeId="{{idx}}" disabled='{{!seed_state}}'>{{item.time}}</button>
+  </view>
+  </block>
 <!--dialog-->
 <template is="modalDialogTem" data="{{showModal,showModalId,modalDialog}}"/>
 

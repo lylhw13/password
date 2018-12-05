@@ -9,13 +9,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show_flag: [true, false],   // 口令和密码是否显示为明文
+    show_flag: [true, false], // 口令和密码是否显示为明文
     seed_state: false,
+
     passwd: "",
-    passwdStr: "",    // show in the page, it may be string or ***
-    inputKey: "",   //用户输入的口令
-    inputKeyText: "",   //仅用于清空输入框
-    seedKey: "seed",    //seed的键名
+    passwdStr: "", // show in the page, it may be string or ***
+    generatePasswd: true,
+
+    inputKey: "", //用户输入的口令
+    inputKeyText: "", //仅用于清空输入框
+
+    seedKey: "seed", //seed的键名
+
+    timeOutId: -1,
+    timer: [300000, 60000, 60000], //unit is ms, 0 time to delete key, 1 time to delete passwd, 2 time to generate passwd
 
 
     //dialog
@@ -53,7 +60,7 @@ Page({
       });
     }
     this.setData({
-      passws: "",     // after the copy, clear the passwd
+      passws: "", // after the copy, clear the passwd
       passwdStr: "",
       inputKeyText: "",
 
@@ -74,13 +81,27 @@ Page({
     }
   },
 
-  bindTextInput: function(e) {    // the dialog input
+  bindTextInput: function(e) { // the dialog input
     var id = e.currentTarget.id;
     this.data.dialogInputData[id] = e.detail.value;
   },
 
-  bindKeyInput: function(e) {     // the key input
+  bindKeyInput: function(e) { // the key input
     this.data.inputKey = e.detail.value;
+
+    if (this.data.timeOutId > 0) {
+      clearTimeout(this.data.timeOutId);
+    }
+    var that = this;
+    var timeOutId = setTimeout(function() {
+      console.log("delete the key");
+      this.setData({
+        inputKeyText: '',
+      })
+    }, this.data.timer[0]);
+    this.setData({
+      timeOutId: timeOutId,
+    })
   },
 
 
@@ -114,17 +135,44 @@ Page({
   },
 
   onGeneratePasswd: function() {
-    if(this.data.inputKey.length!=0) {
-      console.log(this.data.inputKey)
+    if(!this.data.generatePasswd || this.data.inputKey.length == 0){
+        return;
     }
+
+    if (this.data.timeOutId > 0) {
+      clearTimeout(this.data.timeOutId);
+    }
+    var that = this;
+    var timeOutId = setTimeout(function () {
+      console.log("generate passwd");
+      this.setData({
+        passwd: '',
+        passwdStr: '',
+        generatePasswd: true,
+      })
+    }, this.data.timer[2]);
+
+    this.setData({
+      timeOutId: timeOutId,
+      generatePasswd: false,
+    })
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.setStorageSync("seed", "");
-    var seed = wx.getStorageSync('seed');
+    var timer = wx.getStorageSync('timer');
+
+    if (timer.length != 0) {
+      this.setData({
+        timer: timer
+      })
+    }
+
+    //wx.setStorageSync("seed", "");
+    var seed = wx.getStorageSync(this.data.seedKey);
     if (seed.length == 0) {
       this.data.seed_state = false;
     } else if (seed.length == 64) {
@@ -136,7 +184,6 @@ Page({
     this.setData({
       seed_state: this.data.seed_state
     })
-    console.log(CryptoJS.SHA256("你好").toString());
   },
 
   /**
@@ -188,3 +235,7 @@ Page({
 
   }
 });
+
+function CountDown() {
+
+}
