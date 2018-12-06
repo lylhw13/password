@@ -37,7 +37,7 @@
     <button class='copy-passwd' bindtap='onCopyPasswd' disabled='{{passwd.length==0}}'>复制</button>
   </view>
   <view>
-    <button class="generate-passwd-button" bindtap="onGeneratePasswd" disabled='{{!seed_state}}'>
+    <button class="generate-passwd-button" bindtap="onGeneratePasswd" disabled='{{!seed_state || !generatePasswd}}'>
       产生密码
     </button>
   </view>

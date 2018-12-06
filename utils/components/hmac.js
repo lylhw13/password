@@ -4,6 +4,8 @@ code.google.com/p/crypto-js
 (c) 2009-2013 by Jeff Mott. All rights reserved.
 code.google.com/p/crypto-js/wiki/License
 */
+var CryptoJS = require('./core.js');
+
 (function () {
     // Shortcuts
     var C = CryptoJS;

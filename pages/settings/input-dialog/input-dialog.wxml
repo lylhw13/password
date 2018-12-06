@@ -19,7 +19,7 @@
 </view>
 -->
 <template name="modalDialogTem">
-  <view class="modal-mask" bindtap="preventTouch" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-mask" catchtap="preventMaskTouch" catchtouchmove="preventMaskTouch" wx:if="{{showModal}}"></view>
   <view class="modal-dialog" wx:if="{{showModal}}">
     <view class="modal-title">{{modalDialog[showModalId].title}}</view>
     <view class="modal-content">

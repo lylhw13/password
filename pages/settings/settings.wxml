@@ -22,7 +22,7 @@
   <block wx:for="{{timeItem}}" wx:for-item="item" wx:for-index="idx">
   <view class="time-container-view">
     <text class="time-label">{{item.label}}(min):</text>
-    <button class="time-number" bindtap="onPageBtn" id="2" timeId="{{idx}}" disabled='{{!seed_state}}'>{{item.time}}</button>
+    <button class="time-number" bindtap="onPageBtn" id="{{2+idx}}" disabled='{{!seed_state}}'>{{item.time}}</button>
   </view>
   </block>
 <!--dialog-->
