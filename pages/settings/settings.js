@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seed_state: true,
+    seedState: true,
     seedKey: 'seed',
     showModal: false,
     showModalId: 0, // 0 InitSeed, 1 ResetSeed, 2 modify time
@@ -70,7 +70,7 @@ Page({
         if (res.confirm) {
           wx.setStorageSync(that.data.seedKey, '');
           that.setData({
-            seed_state: false,
+            seedState: false,
           })
         }
       }
@@ -100,13 +100,13 @@ Page({
       }
       var seed = util.generateSeed(inputData[0]);
       wx.setStorageSync(this.data.seedKey, seed);
-      this.data.seed_state = true;
+      this.data.seedState = true;
       wx.showToast({
         title: '种子设定成功',
       })
 
       this.setData({
-        seed_state: this.data.seed_state
+        seedState: this.data.seedState
       })
     } else if (this.data.btnId == 1) { //reset seed
 
@@ -156,15 +156,15 @@ Page({
   onLoad: function(options) {
     var seed = wx.getStorageSync(this.data.seedKey);
     if (seed.length == 0) {
-      this.data.seed_state = false;
+      this.data.seedState = false;
     } else if (seed.length == 64) {
-      this.data.seed_state = true;
+      this.data.seedState = true;
     } else {
-      this.data.seed_state = false;
-      wx.setStorageSync("seed", "");
+      this.data.seedState = false;
+      wx.setStorageSync(this.data.seedKey, "");
     }
     this.setData({
-      seed_state: this.data.seed_state
+      seedState: this.data.seedState
     })
   },
 
@@ -172,7 +172,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
   },
 
   /**
@@ -190,22 +189,4 @@ Page({
    */
   onUnload: function() {},
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {},
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
 })

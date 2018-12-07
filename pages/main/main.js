@@ -11,11 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show_flag: [true, false], // 口令和密码是否显示为明文
-    seed_state: false,
+    showFlag: [true, false], // 口令和密码是否显示为明文
+    seedState: false,
 
     passwd: "",
-    passwdStr: "", // show in the page, it may be string or ***
     generatePasswd: true,
 
     inputKey: "", //用户输入的口令
@@ -40,31 +39,21 @@ Page({
 
   onEyeChange: function(e) {
     var id = e.currentTarget.id
-    this.data.show_flag[id] = !this.data.show_flag[id];
-    if (id == 1) {
-      if (this.data.show_flag[id])
-        this.data.passwdStr = this.data.passwd;
-      else {
-        this.data.passwdStr = '*'.repeat(this.data.passwd.length);
-      }
-    }
+    this.data.showFlag[id] = !this.data.showFlag[id];
     this.setData({
-      show_flag: this.data.show_flag,
-      passwdStr: this.data.passwdStr
+      showFlag: this.data.showFlag,
     })
   },
 
   onCopyPasswd: function(e) {
-    if (this.data.seed_state && this.data.passwd.length != 0) {
+    if (this.data.seedState && this.data.passwd.length != 0) {
       wx.setClipboardData({
         data: this.data.passwd,
       });
     }
     this.setData({
       passws: "", // after the copy, clear the passwd
-      passwdStr: "",
       inputKeyText: "",
-
     })
   },
 
@@ -92,8 +81,10 @@ Page({
 
   bindKeyInput: function(e) { // the key input
     this.data.inputKey = e.detail.value;
-
-    countDown(this, 0);
+    this.setData({
+      inputKey: this.data.inputKey
+    })
+    countDown(this, 0);//timer for delete the key
   },
 
   onBtnCancel: function() {
@@ -107,7 +98,7 @@ Page({
     if ((this.data.dialogInputData[0].length != 0 || this.data.dialogInputData[1].length != 0) && this.data.dialogInputData[0] === this.data.dialogInputData[1]) { //not empty and equal
       var seed = util.generateSeed(this.data.dialogInputData[0])
       wx.setStorageSync(this.data.seedKey, seed);
-      this.data.seed_state = true;
+      this.data.seedState = true;
       wx.showToast({
         title: '种子设定成功',
       })
@@ -121,7 +112,7 @@ Page({
     this.setData({
       showModal: false,
       dialogInputData: ["", ""],
-      seed_state: this.data.seed_state
+      seedState: this.data.seedState
     })
   },
 
@@ -129,15 +120,19 @@ Page({
     if (!this.data.generatePasswd || this.data.inputKey.length == 0) {
       return;
     }
-    var seed = wx.getStorageSync(this.data.seedKey);
-    console.log(seed);
-    console.log(this.data.inputKey)
-    //var test = CryptoJS.HmacSHA256(seed,this.data.inputKey).toString();
-    var test = CryptoJS.HmacSHA256(this.data.inputKey, seed).toString();//inputKey as message, seed as secret Key
-    console.log(test);
+    var local_seed = wx.getStorageSync(this.data.seedKey);
+    var passwd = CryptoJS.HmacSHA256(this.data.inputKey, local_seed).toString();//inputKey as message, seed as secret Key
+    for(var i=0; i<1000; i++) {
+      passwd = CryptoJS.SHA256(passwd).toString();
+    }
+    console.log("origin passwd is   "+passwd);
+    this.data.passwd = passwd.substring(0,12);
+    this.setData({
+      passwd: passwd.substring(0,12),
+    })
 
-    countDown(this, 1);
-    countDown(this, 2);
+    countDown(this, 1);//timer for delete the passwd
+    countDown(this, 2);//timer for generate the passwd
   },
 
   /**
@@ -153,15 +148,15 @@ Page({
 
     var seed = wx.getStorageSync(this.data.seedKey);
     if (seed.length == 0) {
-      this.data.seed_state = false;
+      this.data.seedState = false;
     } else if (seed.length == 64) {
-      this.data.seed_state = true;
+      this.data.seedState = true;
     } else {
-      this.data.seed_state = false;
-      wx.setStorageSync("seed", "");
+      this.data.seedState = false;
+      wx.setStorageSync(this.data.seedKey, "");
     }
     this.setData({
-      seed_state: this.data.seed_state
+      seedState: this.data.seedState
     })
   },
 
@@ -221,13 +216,13 @@ function changeData(that, id) {
     console.log('time to delete key');
     that.setData({
       inputKeyText: '',
-      timeOutIds: that.data.timeOutIds
+      inputKey:'',
+      timeOutIds: that.data.timeOutIds,
     })
   } else if (id == 1) {
     console.log('time to delete passwd');
     that.setData({
       passwd: '',
-      passwdStr: '',
       timeOutIds: that.data.timeOutIds
     })
   } else {
@@ -244,7 +239,7 @@ function countDown(that, id) {
     clearTimeout(that.data.timeOutIds[id]);
   }
   if (that.data.timers[id] > 0) {
-    //var timeOutId = setTimeout(function(){ChangeData(there,id)}, that.data.timers[id]); //this is work too
+    //var timeOutId = setTimeout(function(){changeData(that,id)}, that.data.timers[id]); //this is work too
     var timeOutId = setTimeout(changeData, that.data.timers[id], that, id);
     that.data.timeOutIds[id] = timeOutId;
     if (id == 2) {

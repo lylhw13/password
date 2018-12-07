@@ -2,7 +2,7 @@
 <import src="../settings/input-dialog/input-dialog.wxml" />
 <view class='main-view'>
   <view>
-    <view class="settings-view" wx:if="{{seed_state}}">
+    <view class="settings-view" wx:if="{{seedState}}">
       <view class="seed-state-view">
         <image src="../../icon/checked.png"></image>
         <text>种子已设定完成</text>
@@ -21,23 +21,23 @@
   <view class='salt-view'>
     <text class="salt-label">口令</text>
     <view class="eye-image-view">
-      <image src="../../icon/eye.png" wx:if="{{show_flag[0]}}" bindtap='onEyeChange' id='0'></image>
+      <image src="../../icon/eye.png" wx:if="{{showFlag[0]}}" bindtap='onEyeChange' id='0'></image>
       <image src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='0'></image>
     </view>
-    <input focus='{{true}}' maxlength='30' confirm-type='done' placeholder='请输入口令' password='{{!show_flag[0]}}' bindinput='bindKeyInput' value='{{inputKeyText}}'></input>
+    <input focus='{{true}}' maxlength='30' confirm-type='done' placeholder='请输入口令' password='{{!showFlag[0]}}' bindinput='bindKeyInput' value='{{inputKeyText}}'></input>
   </view>
 
   <view class='passwd-view'>
     <text class='passwd-label'>密码</text>
     <view class="eye-image-view">
-      <image src="../../icon/eye.png" wx:if="{{show_flag[1]}}" bindtap='onEyeChange' id='1'></image>
+      <image src="../../icon/eye.png" wx:if="{{showFlag[1]}}" bindtap='onEyeChange' id='1'></image>
       <image src="../../icon/blind.png" wx:else bindtap='onEyeChange' id='1'></image>
     </view>
-    <text class="passwd-text">{{passwdStr}}</text>
+    <input class="passwd-text" disabled='{{true}}' value="{{passwd}}" password='{{!showFlag[1]}}'></input>
     <button class='copy-passwd' bindtap='onCopyPasswd' disabled='{{passwd.length==0}}'>复制</button>
   </view>
   <view>
-    <button class="generate-passwd-button" bindtap="onGeneratePasswd" disabled='{{!seed_state || !generatePasswd}}'>
+    <button class="generate-passwd-button" bindtap="onGeneratePasswd" disabled='{{!seedState || !generatePasswd ||!inputKey}}'>
       产生密码
     </button>
   </view>

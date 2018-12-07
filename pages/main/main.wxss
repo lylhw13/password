@@ -83,7 +83,7 @@
 
 .passwd-text {
   width: 300rpx;
-  line-height: 90rpx;
+  height: 100%;
   border-left: 2rpx solid #ddd;
   padding-left: 10rpx;
 }
