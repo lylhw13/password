@@ -21,9 +21,10 @@ Page({
     inputKeyText: "", //仅用于清空输入框
 
     seedKey: "seed", //seed的键名
+    timerKey: "timers", //timer的键名
 
     timeOutIds: [-1, -1, -1],
-    timers: [30000, 60000, 60000], //unit is ms, 0 time to delete key, 1 time to delete passwd, 2 time to generate passwd
+    timers: [300000, 60000, 60000], //unit is ms, 0 time to delete key, 1 time to delete passwd, 2 time to generate passwd
 
     //dialog
     dialogInputData: ["", ""],
@@ -31,9 +32,16 @@ Page({
     showModalId: 0, // 0 InitSeed
     modalDialog: [{
       title: "设定种子",
-      inputHolder: ["请输入种子", "请再次输入种子"],
-      password: [true, true]
-    }]
+      inputItem: [{
+        placeHolder: "请输入种子",
+        password: true,
+        type: 'text'
+      }, {
+        placeHolder: "请再次输入种子",
+        password: true,
+        type: 'text'
+      }]
+    }],
 
   },
 
@@ -52,7 +60,7 @@ Page({
       });
     }
     this.setData({
-      passws: "", // after the copy, clear the passwd
+      passwd: "", // after the copy, clear the passwd
       inputKeyText: "",
     })
   },
@@ -84,7 +92,7 @@ Page({
     this.setData({
       inputKey: this.data.inputKey
     })
-    countDown(this, 0);//timer for delete the key
+    countDown(this, 0); //timer for delete the key
   },
 
   onBtnCancel: function() {
@@ -111,7 +119,7 @@ Page({
 
     this.setData({
       showModal: false,
-      dialogInputData: ["", ""],
+      dialogInputData: ["", ""], //清空种子明文信息
       seedState: this.data.seedState
     })
   },
@@ -121,25 +129,25 @@ Page({
       return;
     }
     var local_seed = wx.getStorageSync(this.data.seedKey);
-    var passwd = CryptoJS.HmacSHA256(this.data.inputKey, local_seed).toString();//inputKey as message, seed as secret Key
-    for(var i=0; i<1000; i++) {
+    var passwd = CryptoJS.HmacSHA256(this.data.inputKey, local_seed).toString(); //inputKey as message, seed as secret Key
+    for (var i = 0; i < 1000; i++) {
       passwd = CryptoJS.SHA256(passwd).toString();
     }
-    console.log("origin passwd is   "+passwd);
-    this.data.passwd = passwd.substring(0,12);
+    console.log("origin passwd is   " + passwd);
+    this.data.passwd = passwd.substring(0, 12);
     this.setData({
-      passwd: passwd.substring(0,12),
+      passwd: passwd.substring(0, 12),
     })
 
-    countDown(this, 1);//timer for delete the passwd
-    countDown(this, 2);//timer for generate the passwd
+    countDown(this, 1); //timer for delete the passwd
+    countDown(this, 2); //timer for generate the passwd
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var timers = wx.getStorageSync('timers');
+    var timers = wx.getStorageSync(this.data.timerKey);
     if (timers.length != 0) { //init timers
       this.setData({
         timers: timers
@@ -158,6 +166,11 @@ Page({
     this.setData({
       seedState: this.data.seedState
     })
+  },
+  onTouchMoreInfo: function() {
+    wx.navigateTo({
+      url: '../more-info/more-info',
+    });
   },
 
   /**
@@ -216,7 +229,7 @@ function changeData(that, id) {
     console.log('time to delete key');
     that.setData({
       inputKeyText: '',
-      inputKey:'',
+      inputKey: '',
       timeOutIds: that.data.timeOutIds,
     })
   } else if (id == 1) {

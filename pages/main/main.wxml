@@ -41,7 +41,7 @@
       产生密码
     </button>
   </view>
-  <view class='info'>
+  <view class='info' bindtap='onTouchMoreInfo'>
     <image src="../../icon/question.png"></image>
     <text>更多信息...</text>
   </view>

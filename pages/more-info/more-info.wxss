@@ -1,0 +1,14 @@
+.more-info-main-view {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-size: 30rpx;
+}
+.more-info-title {
+  margin-top: 30rpx;
+  font-size: 33rpx;
+  color: #333;
+}
+page{
+height: 100%
+}

@@ -9,25 +9,52 @@ Page({
    */
   data: {
     seedState: true,
-    seedKey: 'seed',
+    seedKey: 'seed', //seed的键名
+    timerKey: "timers", //timer的键名
+
     showModal: false,
     showModalId: 0, // 0 InitSeed, 1 ResetSeed, 2 modify time
     btnId: 0,
     dialogInputData: ["", "", ""],
     modalDialog: [{
         title: "设定种子",
-        inputHolder: ["请输入种子", "请再次输入种子"],
-        password: [true, true]
+        inputItem: [{
+          placeHolder: "请输入种子",
+          password: true,
+          type: 'text'
+        }, {
+          placeHolder: "请再次输入种子",
+          password: true,
+          type: 'text'
+        }]
       },
       {
         title: "重设种子",
-        inputHolder: ["请输入旧种子", "请输入新种子", "请再次输入新种子"],
-        password: [true, true, true]
+        inputItem: [{
+          placeHolder: "请输入旧种子",
+          password: true,
+          type: 'text'
+        }, {
+          placeHolder: "请输入新种子",
+          password: true,
+          type: 'text'
+        }, {
+          placeHolder: "请再次输入新种子",
+          password: true,
+          type: 'text'
+        }]
       },
       {
         title: "修改时间",
-        inputHolder: ["请输入时间间隔", "请输入种子"],
-        password: [false, true]
+        inputItem: [{
+          placeHolder: "请输入时间间隔",
+          password: false,
+          type: 'digit'
+        }, {
+          placeHolder: "请输入种子",
+          password: true,
+          type: 'text'
+        }]
       }
     ],
     timeItem: [{
@@ -146,6 +173,13 @@ Page({
         timeItem: this.data.timeItem,
       })
 
+      var timer = [];
+      for (var i = 0; i < this.data.timeItem.length; i++) {
+        timer.push(this.data.timeItem[i].time * 60000);
+      }
+      wx.setStorageSync('timers', timer)
+
+
       console.log(this.data.timeItem)
     }
   },
@@ -155,6 +189,7 @@ Page({
    */
   onLoad: function(options) {
     var seed = wx.getStorageSync(this.data.seedKey);
+    var timer = wx.getStorageSync(this.data.timerKey);
     if (seed.length == 0) {
       this.data.seedState = false;
     } else if (seed.length == 64) {
@@ -163,16 +198,20 @@ Page({
       this.data.seedState = false;
       wx.setStorageSync(this.data.seedKey, "");
     }
+    for (var i = 0; i < timer.length; i++) {
+      this.data.timeItem[i].time = timer[i] / 60000;
+    }
+    console.log(this.data.timeItem)
     this.setData({
-      seedState: this.data.seedState
+      seedState: this.data.seedState,
+      timeItem: this.data.timeItem
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
